@@ -1,4 +1,9 @@
-//test
-//THE FINAL ONE
-//HEj dennnis
-//Hej king kulan
+#include <iostream>
+using namespace std;
+
+
+int main() {
+
+    std::cout<<"Hello World" << std::endl;
+
+}
