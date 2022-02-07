@@ -1,5 +1,4 @@
-#ifndef ANTIVIRUS_HPP
-#define ANTIVIRUS_HPP
+#pragma once
 
 #include <string>
 #include <iostream>
@@ -22,4 +21,3 @@ class AntiVirus {
 
 
 };
-#endif /* ANTIVIRUS_HPP */
