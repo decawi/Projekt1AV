@@ -1,9 +1,13 @@
 #include <iostream>
-#include <antivirus.hpp>
+#include "antivirus.hpp"
 
 int main() {
 
-    std::cout<<"Hello World" << std::endl;
+
+    AntiVirus Test1;
+    Test1.Testing();
+
+    std::cout << "hehy";
     return 0;
 
-}
+};

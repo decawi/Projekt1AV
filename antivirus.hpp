@@ -1,5 +1,9 @@
+#ifndef ANTIVIRUS_HPP
+#define ANTIVIRUS_HPP
 
-//Vet inte ett lämpligt class nämn än
+#include <string>
+#include <iostream>
+
 class AntiVirus {   
 
     private:
@@ -7,9 +11,10 @@ class AntiVirus {
     protected:
 
     public:
-    AntiVirus();
-    AntiVirus(); //Konstruktor var syfte är att sätta in angivna variblar
-    ~AntiVirus();
+    //AntiVirus();
+    //AntiVirus(); //Konstruktor var syfte är att sätta in angivna variblar
+    //~AntiVirus();
+    void Testing();
 
     //Mer funktioner här
 
@@ -17,3 +22,4 @@ class AntiVirus {
 
 
 };
+#endif /* ANTIVIRUS_HPP */
