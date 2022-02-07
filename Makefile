@@ -1,2 +1,5 @@
-g++ main.cpp antivirus.cpp -o run
+out:
+	g++ main.cpp Antivirus.cpp -o out
 
+clean:
+	rm out
