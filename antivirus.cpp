@@ -4,8 +4,14 @@
 
 using namespace std;
 
+AntiVirus::AntiVirus() {
+    this->directory_path = "Not given";
+}
 
+AntiVirus::AntiVirus(string directory_path) {
+    this->directory_path = directory_path;
+}
 
-void AntiVirus::Testing() {
-    std::cout << "hej simon";
+AntiVirus::~AntiVirus() {
+    //Nothing here
 }

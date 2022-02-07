@@ -6,14 +6,19 @@
 class AntiVirus {   
 
     private:
+    std::string directory_path;  // Antar att denna ska finnas
 
     protected:
 
     public:
-    //AntiVirus();
-    //AntiVirus(); //Konstruktor var syfte är att sätta in angivna variblar
-    //~AntiVirus();
-    void Testing();
+
+
+    // The three default
+    
+    AntiVirus();
+    AntiVirus(std::string directory_path); 
+    ~AntiVirus();
+
 
     //Mer funktioner här
 
