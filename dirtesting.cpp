@@ -42,11 +42,11 @@ void listdir(string initStrPath){
     }
 }
 
-int main(int argc, char *argv[]){
+/*int main(int argc, char *argv[]){
     if(argc <= 1){
         cout << argv[0] << " <dir>" << endl;
         exit(1);
     }
     listdir(argv[1]);
     return 0;
-}
+}*/
