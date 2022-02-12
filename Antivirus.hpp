@@ -1,29 +1,33 @@
 #pragma once
 
-#include <unistd.h>
 #include <string>
-#include <iostream>
 #include <map>
-#include <dirent.h> //opendir
-#include <string.h>
 
+#include <iostream>
+#include <fstream>
+#include <filesystem>
+
+
+namespace fs = std::filesystem;
 using namespace std;
 class AntiVirus {   
 
     private:
-    //Getting currentPath
-    char tmp[256];
+    string directory_path;
 
-    string directory_path;  // Antar att denna ska finnas
-    string virusDatabase_name;
-    map<string,string> virusDatabase;
-
+    //Behöver inte anges
     string currentPath;
+    bool databaseExistsInSameFolder;
 
 
+    void insertDataInMap(string virusDatabaseFile);
     protected:
 
     public:
+    string virusDatabase_name;
+    map<string,string> virusDatabaseData;
+
+
 
 
     // The three default
@@ -33,15 +37,14 @@ class AntiVirus {
     ~AntiVirus();
 
 
-    string getCurrentPath();
-    bool findVirusDatabase(string currentPath,string virusDatabase_name); //Hittar vi databasen i vår path?
+    void setVirusDatabaseName(string virusDatabase_name); // Sätter databasennamn enkelelelelel
+    bool checkIfVirusDatabaseIsInSameFolder(string virusDatabase_name); //Hittar vi databasen i vår path?
+    void setVirusDatabaseData(string virusDatabaseNameFile); // Denna kan vi använda till båda dvs oavsett om det är is amma folder eller i en given path
 
 
-    void GetVirusDatabaseToMap(string virusDatabase_name); //Funktionens syfte är att hämta data från virus databasen och sedan placera ditt i vår map
-    map<string,string> GetVirusFromDatabase();
 
-    string checkPathString(string strPath);
-    void listdir(string initStrPath);
+
+
 
     //Mer funktioner här
 
