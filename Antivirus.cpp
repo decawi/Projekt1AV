@@ -24,7 +24,7 @@ void AntiVirus::insertDataInMap(string virusDatabaseFile) {
 
 
 AntiVirus::AntiVirus() {
-    this->directory_path = "Not given";
+    this->directory_path_to_searh = "Not given";
     this->virusDatabase_name = "Not given";
     this->virusDatabaseData.insert({"", ""});
 
@@ -33,8 +33,8 @@ AntiVirus::AntiVirus() {
 }
 
 
-AntiVirus::AntiVirus(string directory_path, string virusDatabase_name, map<string,string> virusDatabaseData) {
-    this->directory_path = directory_path;
+AntiVirus::AntiVirus(string directory_path_to_searh, string virusDatabase_name, map<string,string> virusDatabaseData) {
+    this->directory_path_to_searh = directory_path_to_searh;
     this->virusDatabase_name = virusDatabase_name;
     this->virusDatabaseData = virusDatabaseData;
 
@@ -66,6 +66,6 @@ void AntiVirus::setVirusDatabaseData(string virusDatabase_name) {
         insertDataInMap(virusDatabase_name);
     }
     else {
-
+        //Insert def if database does not exist in same folder
     }
 }

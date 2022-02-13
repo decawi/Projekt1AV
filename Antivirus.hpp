@@ -13,7 +13,7 @@ using namespace std;
 class AntiVirus {   
 
     private:
-    string directory_path;
+    string directory_path_to_searh;
 
     //Behöver inte anges
     string currentPath;
