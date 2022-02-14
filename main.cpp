@@ -27,7 +27,6 @@ int main(int argc, char* argv[]){
     if(virusDb.empty()) {
         virusDb = "signatures.db";
         dirToScan = argv[1];
-
     }
 
     AntiVirus objAnti(dirToScan,virusDb);
@@ -37,7 +36,6 @@ int main(int argc, char* argv[]){
     else {
         objAnti.setVirusDatabaseData(virusDb);
         objAnti.checkAfterVirusInChoosenPath(dirToScan);
-
     }
 
     return 0;
