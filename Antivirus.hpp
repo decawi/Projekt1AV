@@ -20,15 +20,14 @@ class AntiVirus {
         int currentFilesInArray = 0;
         string currentPath;
         string directory_path_to_scan;
-        string virusDatabase_name;
+        string virusDatabasepath;
         string* fileArray = new string[arrayCapacity];
-        bool databaseExistsInSameFolder;
         map<string,string> virusDatabaseData;
 
     public:
 
         AntiVirus();
-        AntiVirus(string directory_path_to_scan, string virusDatabase_name); 
+        AntiVirus(string directory_path_to_scan, string virusDatabasepath); 
         ~AntiVirus();
 
         bool checkIfVirusDatabaseExist(); 

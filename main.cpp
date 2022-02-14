@@ -37,6 +37,7 @@ int main(int argc, char* argv[]){
         try{
             objAnti.setVirusDatabaseData(virusDb);
             objAnti.checkAfterVirusInChoosenPath(dirToScan);
+            cout << dirToScan;
 
         }
         catch(fs::__cxx11::filesystem_error) {

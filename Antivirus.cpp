@@ -4,14 +4,14 @@
 
 AntiVirus::AntiVirus() {
     this->directory_path_to_scan = "Not set";
-    this->virusDatabase_name = "Not set";
+    this->virusDatabasepath = "Not set";
     this->currentPath = fs::current_path();
 }
 
 
-AntiVirus::AntiVirus(string directory_path_to_scan, string virusDatabase_name) {
+AntiVirus::AntiVirus(string directory_path_to_scan, string virusDatabasepath) {
     this->directory_path_to_scan = directory_path_to_scan;
-    this->virusDatabase_name = virusDatabase_name;
+    this->virusDatabasepath = virusDatabasepath;
     this->currentPath = fs::current_path();
 }
 
@@ -22,20 +22,19 @@ AntiVirus::~AntiVirus() {
 bool AntiVirus::checkIfVirusDatabaseExist() {
 
     bool check = false;
-    if (fs::exists(this->virusDatabase_name)) {
+    if (fs::exists(this->virusDatabasepath)) {
         check = true;
     }
     return check;
 }
 
 void AntiVirus::setVirusDatabaseData(string virusDatabasepath) {
-
-    if(databaseExistsInSameFolder) {
-        insertDataInMap(virusDatabasepath);
+    if(this->virusDatabasepath != "signatures.db") {
+        insertDataInMap(this->virusDatabasepath + "/signatures.db");
+        cout << "hej";
     }
     else {
-        string path = virusDatabasepath + "/" + this->virusDatabase_name;
-        insertDataInMap(path);
+        insertDataInMap(virusDatabasepath);
     }
 }
 
