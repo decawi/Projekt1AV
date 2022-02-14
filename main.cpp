@@ -3,6 +3,7 @@
 int main() {
 
     string databasename;
+    string databasepath;
 
 
 
@@ -10,11 +11,10 @@ int main() {
 
 
 
-    cout << "Virus Database Path : ";
+    cout << "Virus Database Name : ";
     getline(cin, databasename);
 
     AntivirusSystem.setVirusDatabaseName(databasename);
-
 
     if (AntivirusSystem.checkIfVirusDatabaseIsInSameFolder(AntivirusSystem.virusDatabase_name)) {
 
@@ -22,7 +22,11 @@ int main() {
         AntivirusSystem.setVirusDatabaseData(AntivirusSystem.virusDatabase_name);
     }
     else {
-        //Calling funktion where given path is 
+        cout << fs::current_path();
+        cout << "The database could not be found in samefolder as program. Pleas give the full path : ";
+        getline(cin, databasepath);
+        //Calling funktion where given path is /home/kulan/Skrivbord
+        AntivirusSystem.setVirusDatabaseData(databasepath);
 
     }
 

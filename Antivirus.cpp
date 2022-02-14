@@ -3,7 +3,8 @@
 
 void AntiVirus::insertDataInMap(string virusDatabaseFile) {
     string line;
-    ifstream myVirusDataFile (virusDatabase_name);
+    cout << virusDatabaseFile;
+    ifstream myVirusDataFile (virusDatabaseFile);
     
     if(myVirusDataFile.is_open()) {
         while(getline(myVirusDataFile,line)) {
@@ -17,9 +18,9 @@ void AntiVirus::insertDataInMap(string virusDatabaseFile) {
     myVirusDataFile.close();
 
     // Just checking the map
-    /*for (auto itr = virusDatabaseData.begin(); itr != virusDatabaseData.end(); ++itr) {
+    for (auto itr = virusDatabaseData.begin(); itr != virusDatabaseData.end(); ++itr) {
         cout << itr->first << " " << itr->second << '\n';
-    }*/
+    }
 }
 
 
@@ -61,11 +62,16 @@ bool AntiVirus::checkIfVirusDatabaseIsInSameFolder(string virusDatabase_name) {
     return check;
 }
 
-void AntiVirus::setVirusDatabaseData(string virusDatabase_name) {
+void AntiVirus::setVirusDatabaseData(string virusDatabasepath) {
+
+
     if(databaseExistsInSameFolder) {
-        insertDataInMap(virusDatabase_name);
+        insertDataInMap(virusDatabasepath);
     }
     else {
-        //Insert def if database does not exist in same folder
+
+        string path = virusDatabasepath + "/" + this->virusDatabase_name;
+        insertDataInMap(path);
+
     }
 }
