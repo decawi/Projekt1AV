@@ -13,7 +13,13 @@ void AntiVirus::insertDataInMap(string virusDatabaseFile) {
             size_t found = line.find("=");
             string data1 = line.substr(0,found);
             string data2 = line.substr(found + 1,line.length());
-            virusDatabaseData.insert({data1,data2});
+            if (data1.length() > 32) {
+                cout << "Error to insert virus : " << data1 << endl << "The virus name is over 32 characters. The program skips the virus and goes to next one";
+            
+            }
+            else {
+                virusDatabaseData.insert({data1,data2});
+            }
         }
     }
     myVirusDataFile.close();
@@ -110,4 +116,11 @@ void AntiVirus::setfileArrayData(string directory_path_to_searh) {
             setfileArrayData(currentFilePath);
         }
     }
+}
+
+bool AntiVirus::checkIfVIrusExistInfiles(string* fileArray, map<string,string> virusDatabaseData) {
+    //Funktionen tar emot en array o kollar som antas innehålla path till olika filer. Kontrollerar sen om virus finns i vald path
+    // Tar även in datan från virus databasen
+    return true;
+
 }

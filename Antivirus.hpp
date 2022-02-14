@@ -46,7 +46,7 @@ class AntiVirus {
         
         void insertDataInMap(string virusDatabaseFile); // Done
         void setfileArrayData(string directory_path_to_searh); // Done , functions finds all files in given path and stores it into the class array
-        bool checkIfVIrusExistInfiles(string* fileArray);
+        bool checkIfVIrusExistInfiles(string* fileArray,map<string,string> virusDatabaseData);
         void reportVirusToLogFile();
 
 };
