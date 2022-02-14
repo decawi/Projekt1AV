@@ -14,42 +14,36 @@ using namespace std;
 class AntiVirus {   
 
     private:
-    string directory_path_to_searh;
+        string directory_path_to_searh;
 
     //Behöver inte anges
-    string currentPath;
-    bool databaseExistsInSameFolder;
-
-
-    void insertDataInMap(string virusDatabaseFile);
-    protected:
+        string currentPath;
+        bool databaseExistsInSameFolder;
 
     public:
-    string virusDatabase_name;
-    map<string,string> virusDatabaseData;
+        string virusDatabase_name;
+        map<string,string> virusDatabaseData;
 
 
 
 
     // The three default
-    
-    AntiVirus();
-    AntiVirus(string directory_path, string virusDatabase_name, map<string,string> virusDatabase); 
-    ~AntiVirus();
+        AntiVirus();
+        AntiVirus(string directory_path, string virusDatabase_name, map<string,string> virusDatabase); 
+        ~AntiVirus();
 
 
-    void setVirusDatabaseName(string virusDatabase_name); // Sätter databasennamn enkelelelelel
-    bool checkIfVirusDatabaseIsInSameFolder(string virusDatabase_name); //Hittar vi databasen i vår path?
-    void setVirusDatabaseData(string virusDatabaseNameFile); // Denna kan vi använda till båda dvs oavsett om det är is amma folder eller i en given path
+        void setVirusDatabaseName(string virusDatabase_name); // Sätter databasennamn enkelelelelel
+        bool checkIfVirusDatabaseIsInSameFolder(string virusDatabase_name); //Hittar vi databasen i vår path?
+        void setVirusDatabaseData(string virusDatabaseNameFile); // Denna kan vi använda till båda dvs oavsett om det är is amma folder eller i en given path
+
+        void checkAfterVirusInChoosenPath(string directory_path_to_searh);
 
 
-
-
-
-
-    //Mer funktioner här
-
-
-
+    //Private functions
+    private:
+      void insertDataInMap(string virusDatabaseFile);
+      bool checkIfVIrusExistInfile();
+      void reportVirusToLogFile();
 
 };
