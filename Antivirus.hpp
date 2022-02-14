@@ -1,4 +1,6 @@
 #pragma once
+// Simon Danielsson sidn21@student.bth.se
+// Dennis Calza Wilhelmsson deca21@student.bth.se
 
 #include <string>
 #include <map>

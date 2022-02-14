@@ -1,4 +1,9 @@
 # Projekt1AV
+
+
+Simon Danielsson sidn21@student.bth.se
+Dennis Calza Wilhelmsson deca21@student.bth.se
+
 dv1620 Projekt 1 BTH (2022)
 
 Dokumentation :D
@@ -14,3 +19,4 @@ Makefile = Skapar en fil vid namn out som man kör i terminal. Detta för att st
 launch.json = skapar möjlighet att debuga i vscode
 
 tasks.json = skapar möjlighet att kompilera i vscode
+

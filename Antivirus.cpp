@@ -1,5 +1,6 @@
+// Simon Danielsson sidn21@student.bth.se
+// Dennis Calza Wilhelmsson deca21@student.bth.se
 #include "Antivirus.hpp"
-
 
 void AntiVirus::insertDataInMap(string virusDatabaseFile) {
     string line;
