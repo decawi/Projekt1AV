@@ -34,9 +34,14 @@ int main(int argc, char* argv[]){
         cout << "Could not find your Virus database. Try again!";
     }
     else {
-        objAnti.setVirusDatabaseData(virusDb);
-        objAnti.checkAfterVirusInChoosenPath(dirToScan);
-    }
+        try{
+            objAnti.setVirusDatabaseData(virusDb);
+            objAnti.checkAfterVirusInChoosenPath(dirToScan);
 
+        }
+        catch(fs::__cxx11::filesystem_error) {
+            cout << "The directory could not be found! Try again." << endl;
+        }
+    }
     return 0;
 }
