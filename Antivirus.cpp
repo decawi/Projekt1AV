@@ -3,8 +3,8 @@
 #include "Antivirus.hpp"
 
 void AntiVirus::insertDataInMap(string virusDatabaseFile) {
+
     string line;
-    cout << virusDatabaseFile;
     ifstream myVirusDataFile (virusDatabaseFile);
     
     if(myVirusDataFile.is_open()) {
@@ -19,15 +19,16 @@ void AntiVirus::insertDataInMap(string virusDatabaseFile) {
     myVirusDataFile.close();
 
     // Just checking the map
-    for (auto itr = virusDatabaseData.begin(); itr != virusDatabaseData.end(); ++itr) {
+    /*for (auto itr = virusDatabaseData.begin(); itr != virusDatabaseData.end(); ++itr) {
         cout << itr->first << " " << itr->second << '\n';
-    }
+    }*/
 }
 
 
 AntiVirus::AntiVirus() {
-    this->directory_path_to_searh = "Not given";
-    this->virusDatabase_name = "Not given";
+
+    this->directory_path_to_searh = "Not set";
+    this->virusDatabase_name = "Not set";
     this->virusDatabaseData.insert({"", ""});
 
 
@@ -36,6 +37,7 @@ AntiVirus::AntiVirus() {
 
 
 AntiVirus::AntiVirus(string directory_path_to_searh, string virusDatabase_name, map<string,string> virusDatabaseData) {
+
     this->directory_path_to_searh = directory_path_to_searh;
     this->virusDatabase_name = virusDatabase_name;
     this->virusDatabaseData = virusDatabaseData;
@@ -46,10 +48,12 @@ AntiVirus::AntiVirus(string directory_path_to_searh, string virusDatabase_name, 
 
 AntiVirus::~AntiVirus() {
 
+    delete[] fileArray;
 }
 
 
 void AntiVirus::setVirusDatabaseName(string virusDatabase_name) {
+
     this->virusDatabase_name = virusDatabase_name;
 }
 
@@ -65,14 +69,45 @@ bool AntiVirus::checkIfVirusDatabaseIsInSameFolder(string virusDatabase_name) {
 
 void AntiVirus::setVirusDatabaseData(string virusDatabasepath) {
 
-
     if(databaseExistsInSameFolder) {
         insertDataInMap(virusDatabasepath);
     }
     else {
-
         string path = virusDatabasepath + "/" + this->virusDatabase_name;
         insertDataInMap(path);
+    }
+}
 
+void AntiVirus::setfileArrayData(string directory_path_to_searh) {
+
+    string path = directory_path_to_searh;
+
+    // What is happening here?
+    for (const auto & file : fs::directory_iterator(path)) {
+        string currentFilePath = file.path();
+
+        if(fs::is_directory(currentFilePath) != true) {
+            if(currentFilesInArray < arrayCapacity) {
+                fileArray[currentFilesInArray] = currentFilePath;
+                currentFilesInArray++;
+
+            }
+            else {
+                // Allokera en större array med ny capacity
+                arrayCapacity += 50;
+                string* newArray = new string[arrayCapacity];
+                for(int i = 0; i < currentFilesInArray; i++) {
+                    newArray[i] = fileArray[i];
+                }
+                delete[] fileArray;
+                fileArray = newArray;
+                fileArray[currentFilesInArray] = currentFilePath;
+                currentFilesInArray++;
+
+            }
+        }
+        else {
+            setfileArrayData(currentFilePath);
+        }
     }
 }
