@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
+#include <sstream>
 
 
 namespace fs = std::filesystem;
@@ -15,38 +16,29 @@ class AntiVirus {
 
     private:
         //Behöver inte anges av användare
-        string currentPath;
         int arrayCapacity = 50;
         int currentFilesInArray = 0;
-        bool databaseExistsInSameFolder;
-        string* fileArray = new string[arrayCapacity];
-
-
-        string directory_path_to_searh;
-
-    public:
+        string currentPath;
+        string directory_path_to_scan;
         string virusDatabase_name;
+        string* fileArray = new string[arrayCapacity];
+        bool databaseExistsInSameFolder;
         map<string,string> virusDatabaseData;
 
-    // The three default
+    public:
+
         AntiVirus();
-        AntiVirus(string directory_path_to_searh, string virusDatabase_name, map<string,string> virusDatabase); 
+        AntiVirus(string directory_path_to_scan, string virusDatabase_name); 
         ~AntiVirus();
 
+        bool checkIfVirusDatabaseExist(); 
+        void setVirusDatabaseData(string virusDatabaseNameFile);
+        void checkAfterVirusInChoosenPath(string directory_path_to_scan);
 
-        void setVirusDatabaseName(string virusDatabase_name); // Sätter databasennamn enkelelelelel
-        bool checkIfVirusDatabaseIsInSameFolder(string virusDatabase_name); //Hittar vi databasen i vår path?
-        void setVirusDatabaseData(string virusDatabaseNameFile); // Denna kan vi använda till båda dvs oavsett om det är is amma folder eller i en given path
-        bool checkAfterVirusInChoosenPath(string directory_path_to_searh);
-
-
-    //Private functions
-        //void setfileArrayData(string directory_path_to_searh);
     private:
-        
-        void insertDataInMap(string virusDatabaseFile); // Done
-        void setfileArrayData(string directory_path_to_searh); // Done , functions finds all files in given path and stores it into the class array
-        bool checkIfVIrusExistInfiles(string* fileArray,map<string,string> virusDatabaseData);
-        void reportVirusToLogFile();
+        void insertDataInMap(string virusDatabaseFile);
+        void setfileArrayData(string directory_path_to_scan);
+        bool checkIfVIrusExistInfiles();
+        void reportVirusToLogFile(string report);
 
 };

@@ -1,8 +1,5 @@
-run: out
-	./out
-
 out:
-	g++ main.cpp Antivirus.cpp -std=c++17 -lstdc++fs -o out
+	g++ main.cpp Antivirus.cpp -std=c++17 -lstdc++fs -o Antivirus
 
 clean:
-	rm out
+	rm Antivirus

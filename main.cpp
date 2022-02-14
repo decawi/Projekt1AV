@@ -2,32 +2,43 @@
 // Dennis Calza Wilhelmsson deca21@student.bth.se
 #include "Antivirus.hpp"
 
-int main() {
+int main(int argc, char* argv[]){
 
-    string databasename;
-    string databasepath;
-    AntiVirus AntivirusSystem;
+    string dirToScan;
+    string virusDb;
 
+    if(argc <= 1 || argc >= 5){
+        cout << argv[0] << " <path/to/scan -d path/to/database>" << endl;
+        exit(1);
+    }
 
+    for(int i = 0; i < argc;i++) {
+        if(string(argv[i]) == "-d") {
+            virusDb = argv[i+1];
+            if((i+1) >= (argc-1)) {
+                dirToScan = argv[i-1];
+            }
+            else {
+                dirToScan = argv[i+2];
+            }
+        }
+    }
 
-    /*cout << "Virus Database Name : ";
-    getline(cin, databasename);
+    if(virusDb.empty()) {
+        virusDb = "signatures.db";
+        dirToScan = argv[1];
 
-    AntivirusSystem.setVirusDatabaseName(databasename);
+    }
 
-    if (AntivirusSystem.checkIfVirusDatabaseIsInSameFolder(AntivirusSystem.virusDatabase_name)) {
-
-        //Making virusdatabase info to map and storing the data
-        AntivirusSystem.setVirusDatabaseData(AntivirusSystem.virusDatabase_name);
+    AntiVirus objAnti(dirToScan,virusDb);
+    if(!objAnti.checkIfVirusDatabaseExist())  {
+        cout << "Could not find your Virus database. Try again!";
     }
     else {
-        cout << "The database could not be found in samefolder as program. Pleas give the full path : ";
-        getline(cin, databasepath);
-        //Calling funktion where given path is /home/kulan/Skrivbord
-        AntivirusSystem.setVirusDatabaseData(databasepath);
+        objAnti.setVirusDatabaseData(virusDb);
+        objAnti.checkAfterVirusInChoosenPath(dirToScan);
 
-    }*/
-
+    }
 
     return 0;
-};
+}

@@ -2,6 +2,56 @@
 // Dennis Calza Wilhelmsson deca21@student.bth.se
 #include "Antivirus.hpp"
 
+AntiVirus::AntiVirus() {
+    this->directory_path_to_scan = "Not set";
+    this->virusDatabase_name = "Not set";
+    this->currentPath = fs::current_path();
+}
+
+
+AntiVirus::AntiVirus(string directory_path_to_scan, string virusDatabase_name) {
+    this->directory_path_to_scan = directory_path_to_scan;
+    this->virusDatabase_name = virusDatabase_name;
+    this->currentPath = fs::current_path();
+}
+
+AntiVirus::~AntiVirus() {
+    delete[] fileArray;
+}
+
+bool AntiVirus::checkIfVirusDatabaseExist() {
+
+    bool check = false;
+    if (fs::exists(this->virusDatabase_name)) {
+        check = true;
+    }
+    return check;
+}
+
+void AntiVirus::setVirusDatabaseData(string virusDatabasepath) {
+
+    if(databaseExistsInSameFolder) {
+        insertDataInMap(virusDatabasepath);
+    }
+    else {
+        string path = virusDatabasepath + "/" + this->virusDatabase_name;
+        insertDataInMap(path);
+    }
+}
+
+void AntiVirus::checkAfterVirusInChoosenPath(string directory_path_to_scan) {
+    setfileArrayData(directory_path_to_scan);
+    bool check = checkIfVIrusExistInfiles();
+
+    if(check) {
+        cout << "------------WARNING!------------ \n Virus has been detected in choosen path and is now loged in dv1620.log" << endl;
+    }
+    else {
+        cout << "No Virus was found in scanned directory!" << endl;
+    }
+}
+
+
 void AntiVirus::insertDataInMap(string virusDatabaseFile) {
 
     string line;
@@ -23,72 +73,12 @@ void AntiVirus::insertDataInMap(string virusDatabaseFile) {
         }
     }
     myVirusDataFile.close();
-
-    // Just checking the map
-    /*for (auto itr = virusDatabaseData.begin(); itr != virusDatabaseData.end(); ++itr) {
-        cout << itr->first << " " << itr->second << '\n';
-    }*/
 }
 
+void AntiVirus::setfileArrayData(string directory_path_to_scan) {
 
-AntiVirus::AntiVirus() {
+    string path = directory_path_to_scan;
 
-    this->directory_path_to_searh = "Not set";
-    this->virusDatabase_name = "Not set";
-    this->virusDatabaseData.insert({"", ""});
-
-
-    this->currentPath = fs::current_path();
-}
-
-
-AntiVirus::AntiVirus(string directory_path_to_searh, string virusDatabase_name, map<string,string> virusDatabaseData) {
-
-    this->directory_path_to_searh = directory_path_to_searh;
-    this->virusDatabase_name = virusDatabase_name;
-    this->virusDatabaseData = virusDatabaseData;
-
-
-    this->currentPath = fs::current_path();
-}
-
-AntiVirus::~AntiVirus() {
-
-    delete[] fileArray;
-}
-
-
-void AntiVirus::setVirusDatabaseName(string virusDatabase_name) {
-
-    this->virusDatabase_name = virusDatabase_name;
-}
-
-bool AntiVirus::checkIfVirusDatabaseIsInSameFolder(string virusDatabase_name) {
-
-    bool check = false;
-    if (fs::exists(virusDatabase_name)) {
-        check = true;
-    }
-    this->databaseExistsInSameFolder = check;
-    return check;
-}
-
-void AntiVirus::setVirusDatabaseData(string virusDatabasepath) {
-
-    if(databaseExistsInSameFolder) {
-        insertDataInMap(virusDatabasepath);
-    }
-    else {
-        string path = virusDatabasepath + "/" + this->virusDatabase_name;
-        insertDataInMap(path);
-    }
-}
-
-void AntiVirus::setfileArrayData(string directory_path_to_searh) {
-
-    string path = directory_path_to_searh;
-
-    // What is happening here?
     for (const auto & file : fs::directory_iterator(path)) {
         string currentFilePath = file.path();
 
@@ -99,7 +89,6 @@ void AntiVirus::setfileArrayData(string directory_path_to_searh) {
 
             }
             else {
-                // Allokera en större array med ny capacity
                 arrayCapacity += 50;
                 string* newArray = new string[arrayCapacity];
                 for(int i = 0; i < currentFilesInArray; i++) {
@@ -118,9 +107,42 @@ void AntiVirus::setfileArrayData(string directory_path_to_searh) {
     }
 }
 
-bool AntiVirus::checkIfVIrusExistInfiles(string* fileArray, map<string,string> virusDatabaseData) {
-    //Funktionen tar emot en array o kollar som antas innehålla path till olika filer. Kontrollerar sen om virus finns i vald path
-    // Tar även in datan från virus databasen
-    return true;
+bool AntiVirus::checkIfVIrusExistInfiles() {
+    bool check = false;
+    string report;
 
+    for(int i = 0; i < currentFilesInArray; i++) {
+        ifstream fileToCheck(fileArray[i]);
+        string hexstring;
+        char letter;
+
+        // Dont like this very much
+        while(fileToCheck.get(letter)) {
+                unsigned short int value = static_cast<unsigned short int>(static_cast<unsigned char>(letter));
+                char buffer[3];
+                sprintf(buffer,"%02hx",value);
+                hexstring += string(buffer);
+        }
+
+        for (auto itr = virusDatabaseData.begin(); itr != virusDatabaseData.end(); itr++) {
+            int length = itr->second.length() / 2;
+            if(hexstring.substr(0,length) == itr->second.substr(0,length)) {
+                report += "Virus with name " + itr->first + " was detected at path : " + fileArray[i] + "\n";
+                break;
+            }
+        }
+        fileToCheck.close();
+    }
+    if(!report.empty()) {
+        reportVirusToLogFile(report);
+        check = true;
+    }
+    return check;
+
+}
+
+
+void AntiVirus::reportVirusToLogFile(string report) {
+    ofstream logFile("dv1620.log");
+    logFile << report;
 }
