@@ -31,7 +31,6 @@ bool AntiVirus::checkIfVirusDatabaseExist() {
 void AntiVirus::setVirusDatabaseData(string virusDatabasepath) {
     if(this->virusDatabasepath != "signatures.db") {
         insertDataInMap(this->virusDatabasepath + "/signatures.db");
-        cout << "hej";
     }
     else {
         insertDataInMap(virusDatabasepath);
