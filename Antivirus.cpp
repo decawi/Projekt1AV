@@ -114,7 +114,6 @@ bool AntiVirus::checkIfVIrusExistInfiles() {
         string hexstring;
         char letter;
 
-        // Dont like this very much
         while(fileToCheck.get(letter)) {
                 unsigned short int value = static_cast<unsigned short int>(static_cast<unsigned char>(letter));
                 char buffer[3];
