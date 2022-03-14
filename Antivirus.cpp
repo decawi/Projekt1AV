@@ -2,6 +2,7 @@
 // Dennis Calza Wilhelmsson deca21@student.bth.se
 #include "Antivirus.hpp"
 
+
 AntiVirus::AntiVirus() {
     this->directory_path_to_scan = "Not set";
     this->virusDatabasepath = "Not set";
@@ -120,7 +121,6 @@ bool AntiVirus::checkIfVIrusExistInfiles() {
                 sprintf(buffer,"%02hx",value);
                 hexstring += string(buffer);
         }
-
         for (auto itr = virusDatabaseData.begin(); itr != virusDatabaseData.end(); itr++) {
             int length = itr->second.length() / 2;
             if(hexstring.substr(0,length) == itr->second.substr(0,length)) {
